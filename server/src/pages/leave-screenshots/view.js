@@ -1,6 +1,7 @@
 const sendEvent = require("../../browser-send-event.js");
 const reactruntime = require("../../reactruntime");
 const React = require("react");
+const Localized = require("fluent-react");
 
 class Head extends React.Component {
 
@@ -46,8 +47,12 @@ class Body extends React.Component {
         <div className="column-center full-height alt-color-scheme">
           <img src={ this.props.staticLink("/static/img/image-nope_screenshots.svg") } alt="no Shots found" width="432" height="432"/>
           <div className="alt-content">
-            <p>All of your screenshots have been erased!</p>
-            <a href="/shots" onClick={ this.onClickHome.bind(this) } className="button primary">Home</a>
+            <Localized id="leavePageDeleted">
+              <p>All of your screenshots have been erased!</p>
+            </Localized>
+            <Localized id="gHomeLink">
+              <a href="/shots" onClick={ this.onClickHome.bind(this) } className="button primary">Home</a>
+            </Localized>
           </div>
         </div>
       </reactruntime.BodyTemplate>

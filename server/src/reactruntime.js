@@ -3,6 +3,8 @@ require("core-js");
 const React = require("react");
 const ReactDOM = require("react-dom");
 const linker = require("./linker");
+const { LocalizationProvider } = require("fluent-react/compat");
+const l10n = require("./l10n");
 
 exports.HeadTemplate = class HeadTemplate extends React.Component {
 
@@ -38,9 +40,11 @@ exports.BodyTemplate = class Body extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.props.children}
-      </div>
+      <LocalizationProvider messages={typeof navigator === "undefined" ? l10n.generateMessages(l10n.userLangs) : l10n.generateMessages(navigator.languages)}>
+        <div>
+          {this.props.children}
+        </div>
+      </LocalizationProvider>
     );
   }
 
