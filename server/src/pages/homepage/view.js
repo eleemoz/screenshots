@@ -1,6 +1,6 @@
 const reactruntime = require("../../reactruntime");
 const React = require("react");
-const Localized = require("fluent-react");
+const { Localized } = require("fluent-react/compat");
 const style = `
   html, body {
     padding: 0;

@@ -1,5 +1,5 @@
 const React = require("react");
-const Localized = require("fluent-react");
+const { Localized } = require("fluent-react/compat");
 const sendEvent = require("./browser-send-event.js");
 
 exports.ShareButton = class ShareButton extends React.Component {

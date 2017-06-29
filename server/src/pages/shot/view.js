@@ -1,7 +1,7 @@
 /* globals controller */
 const React = require("react");
 const ReactDOM = require("react-dom");
-const Localized = require("fluent-react");
+const { Localized } = require("fluent-react/compat");
 const { Footer } = require("../../footer-view");
 const sendEvent = require("../../browser-send-event.js");
 const { ShareButton } = require("../../share-buttons");

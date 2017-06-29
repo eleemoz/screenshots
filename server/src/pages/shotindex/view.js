@@ -7,7 +7,6 @@ const ReactDOM = require("react-dom");
 const { ShareButton } = require("../../share-buttons");
 const Masonry = require("react-masonry-component");
 const { Localized } = require("fluent-react/compat");
-// TODO: how do we pass l10n from the req into the Head and Body component props?
 
 class Head extends React.Component {
 

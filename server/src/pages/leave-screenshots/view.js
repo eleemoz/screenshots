@@ -1,7 +1,7 @@
 const sendEvent = require("../../browser-send-event.js");
 const reactruntime = require("../../reactruntime");
 const React = require("react");
-const Localized = require("fluent-react");
+const { Localized } = require("fluent-react/compat");
 
 class Head extends React.Component {
 

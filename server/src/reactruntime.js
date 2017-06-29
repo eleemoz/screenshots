@@ -21,16 +21,18 @@ exports.HeadTemplate = class HeadTemplate extends React.Component {
       }
     }
     return (
-      <head>
-        <meta charSet="UTF-8" />
-        <title>{this.props.title}</title>
-        <link rel="icon" type="image/png" href={this.props.staticLink("/static/img/icon-32.png")} />
-        <link rel="shortcut icon" href={this.props.staticLink("/static/img/icon-32.png")} />
-        { analyticsScript }
-        { activationScript }
-        { this.props.sentryPublicDSN ? <script src={this.props.staticLink("/install-raven.js")} async /> : null }
-        {this.props.children}
-      </head>
+      <LocalizationProvider messages={typeof navigator === "undefined" ? l10n.generateMessages(l10n.userLangs) : l10n.generateMessages(navigator.languages)}>
+        <head>
+          <meta charSet="UTF-8" />
+          <title>{this.props.title}</title>
+          <link rel="icon" type="image/png" href={this.props.staticLink("/static/img/icon-32.png")} />
+          <link rel="shortcut icon" href={this.props.staticLink("/static/img/icon-32.png")} />
+          { analyticsScript }
+          { activationScript }
+          { this.props.sentryPublicDSN ? <script src={this.props.staticLink("/install-raven.js")} async /> : null }
+          {this.props.children}
+        </head>
+      </LocalizationProvider>
     );
   }
 
