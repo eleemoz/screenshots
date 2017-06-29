@@ -25,15 +25,23 @@ class Body extends React.Component {
     return (
       <reactruntime.BodyTemplate {...this.props}>
         <div className="column-center full-height alt-color-scheme">
-          <img src={ this.props.staticLink("/static/img/image-nope_screenshots.svg") } alt="no Shots found" width="432" height="432"/>
+          <Localized id="gNoShots">
+            <img src={ this.props.staticLink("/static/img/image-nope_screenshots.svg") } alt="no Shots found" width="432" height="432"/>
+          </Localized>
           <div className="alt-content">
-            <p>This will permanently erase all of your screenshots.</p>
+            <Localized id="leavePageWarning">
+              <p>This will permanently erase all of your screenshots.</p>
+            </Localized>
             <form action="/leave-screenshots/leave" method="POST">
               <input type="hidden" name="_csrf" value={this.props.csrfToken} />
-              <button type="submit" onClick={ this.onClickDelete.bind(this) } className="button warning">
-                Proceed
-              </button>
-              <a href="/shots" onClick={ this.onClickCancel.bind(this) } className="cancel-delete">Cancel</a>
+              <Localized id="leavePageButtonProceed">
+                <button type="submit" onClick={ this.onClickDelete.bind(this) } className="button warning">
+                  Proceed
+                </button>
+              </Localized>
+              <Localized id="leavePageButtonCancel">
+                <a href="/shots" onClick={ this.onClickCancel.bind(this) } className="cancel-delete">Cancel</a>
+              </Localized>
             </form>
           </div>
         </div>
@@ -45,7 +53,9 @@ class Body extends React.Component {
     return (
       <reactruntime.BodyTemplate {...this.props}>
         <div className="column-center full-height alt-color-scheme">
-          <img src={ this.props.staticLink("/static/img/image-nope_screenshots.svg") } alt="no Shots found" width="432" height="432"/>
+          <Localized id="gNoShots">
+            <img src={ this.props.staticLink("/static/img/image-nope_screenshots.svg") } alt="no Shots found" width="432" height="432"/>
+          </Localized>
           <div className="alt-content">
             <Localized id="leavePageDeleted">
               <p>All of your screenshots have been erased!</p>

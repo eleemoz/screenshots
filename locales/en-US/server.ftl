@@ -6,6 +6,9 @@ gHomeLink = Home
 gNoShots
   .alt = no Shots found
 
+// Note: do not translate 'Firefox Screenshots' when translating this string
+gScreenshotsDescription  = Firefox Screenshots made simple. Take, save and share screenshots without leaving Firefox.
+
 // creating page
 
 // Localization note: {title} is a placeholder for the title of the web page
@@ -20,6 +23,27 @@ homePageDescription
   .content = Intuitive screenshots baked right into the browser. Capture, save and share screenshots as you browse the Web using Firefox.
 homePageButtonMyShots = Go To My Shots
 homePageTeaser = Coming Soon...
+homePageDownloadFirefoxTitle = Firefox
+homePageDownloadFirefoxSubTitle = Free Download
+homePageGetStarted = Get Started
+// TODO: do we want to translate 'Screenshots' here?
+homePageHowScreenshotsWorks = How Screenshots Works
+// TODO: how best to split this across multiple strings?
+homePageGetStarted = Get <span className="bold">Started</span>
+homePageGetStartedDescription = Find the new Screenshots icon on your toolbar. Select it, and the Screenshots menu will appear on top of your browser window.
+// TODO: how best to split this across multiple strings?
+homePageCaptureRegion = <span className="bold">Capture</span> a Region
+homePageCaptureRegionDescription = Click and drag to select the area you want to capture. Or just hover and click — Screenshots will select the area for you. Like what you see? Select Save to access your screenshot online or the down arrow button to download it to your computer.
+// TODO: how best to split this across multiple strings?
+homePageCapturePage = <span className="bold">Capture</span> a Page
+homePageCapturePageDescription = Use the buttons in the upper right to capture full pages. The Save Visible button will capture the area you can view without scrolling, and the Save Full Page will capture everything on the page.</p>
+// TODO: how best to split this across multiple strings?
+homePageSaveShare = <span className="bold">Save</span> and <span className="bold">Share</span>
+homePageSaveShareDescription = When you take a shot, Firefox posts your screenshot to your online Screenshots library and copies the link to your clipboard. We automatically store your screenshot for two weeks, but you can delete shots at any time or change the expiration date to keep them in your library for longer.
+homePageLegalLink = Legal
+homePagePrivacyLink = Privacy 
+homePageTermsLink = Terms
+homePagePrivacyLink = Cookies
 
 // leave screenshots page
 
@@ -36,8 +60,8 @@ leavePageDeleted = All of your screenshots have been erased!
 // not found page
 
 notFoundPageTitle = Page Not Found
-notFoundPageDescription = The page was not found.
-notFoundPageMyShotsLink = My Shots
+notFoundPageIntro = Oops.
+notFoundPageDescription = Page not found.
 
 // shot page
 
@@ -78,7 +102,6 @@ shotPageDeleteButton
   .title = Delete this shot permanently
 shotPageAbuseButton
   .title = Report this shot for abuse, spam, or other problems
-shotPageMyShots = My Shots
 shotPageDownloadShot
   .title = Download the shot image
 shotPageDownload = Download
@@ -86,6 +109,13 @@ shotPageDownload = Download
 shotPageScreenshotsDescription  = Firefox Screenshots made simple. Take, save and share screenshots without leaving Firefox.
 shotPageUpsellFirefox = Get Firefox now
 shotPageDoesNotExpire = does not expire
+shotPageDMCAMessage = This shot is no longer available due to a third party intellectual property claim.
+// Note: {$dmca} is a placeholder for a link to send email (a mailto link).
+shotPageDMCAContact = Please email {$dmca} to request further information.
+// Note: do not translate 'Firefox Screenshots' when translating this string
+shotPageDMCAWarning = If your Shots are subject to multiple claims, we may revoke your access to Firefox Screenshots.
+// Note: {$url} is a placeholder for a shot page URL
+shotPageDMCAIncludeLink = Please include the URL of this shot in your email: {$url}
 
 // shotindex page
 
@@ -154,8 +184,8 @@ metricsPageVersionQueryVersion = Add-on version
 metricsPageVersionQueryLastSeen = Day
 
 metricsPageHeader = Metrics
-// Note: {created} is a placeholder for a localized date and time, like '4/21/2017, 3:40:04 AM'
-metricsPageGeneratedDateTime = Generated at: {created}
-// Note {time} is a placeholder for a number of milliseconds, like '100'
-metricsPageDatabaseQueryTime = (database time: {time}ms)
+// Note: {$created} is a placeholder for a localized date and time, like '4/21/2017, 3:40:04 AM'
+metricsPageGeneratedDateTime = Generated at: {$created}
+// Note {$time} is a placeholder for a number of milliseconds, like '100'
+metricsPageDatabaseQueryTime = (database time: {$time}ms)
 

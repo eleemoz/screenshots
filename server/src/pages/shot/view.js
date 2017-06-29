@@ -119,7 +119,7 @@ class Head extends React.Component {
         </reactruntime.HeadTemplate>
       );
     }
-    // FIXME: we need to review if the oembed form actually works and is valuable
+    // FIXME: we need to review if the oembed form actually works and is valuable (#585)
     return (
       <reactruntime.HeadTemplate {...this.props}>
         <script src={ this.props.staticLink("/static/js/wantsauth.js") } />
@@ -196,6 +196,7 @@ class Body extends React.Component {
 
   onClickDelete(e) {
     sendEvent("start-delete", "navbar", {useBeacon: true});
+    // todo l10n: another window.confirm to localize
     if (window.confirm("Are you sure you want to delete this shot permanently?")) {
       sendEvent("delete", "popup-confirm", {useBeacon: true});
       this.props.controller.deleteShot(this.props.shot);
@@ -224,11 +225,23 @@ class Body extends React.Component {
     let moreInfo = null;
     if (this.props.blockType === 'dmca') {
       if (this.props.isOwner) {
-        message = "This shot is no longer available due to a third party intellectual property claim.";
+        message = (
+          <Localized id="shotPageDMCAMessage">
+            <span>This shot is no longer available due to a third party intellectual property claim.</span>
+          </Localized>
+        );
         moreInfo = (
           <p>
-            Please email <a href="mailto:dmcanotice@mozilla.com">dmcanotice@mozilla.com</a> to request further information. If your Shots are subject to multiple claims, we may revoke your access to Firefox Screenshots.<br/>
-            Please include the URL of this shot in your email: {this.props.backend}/{this.props.id}
+            <Localized id="shotPageDMCAContact" $dmca={<a href="mailto:dmcanotice@mozilla.com">dmcanotice@mozilla.com</a>}>
+              <span>Please email {$dmca} to request further information.</span>
+            </Localized>
+            <Localized id="shotPageDMCAWarning">
+              <span>If your Shots are subject to multiple claims, we may revoke your access to Firefox Screenshots.</span>
+            </Localized>
+            <br/>
+            <Localized id="shotPageDMCAIncludeLink" $url={{this.props.backend}/{this.props.id}}>
+              <span>Please include the URL of this shot in your email: {$url}</span>
+            </Localized>
           </p>
         );
       }
@@ -236,7 +249,9 @@ class Body extends React.Component {
 
     return <reactruntime.BodyTemplate {...this.props}>
       <div className="column-center full-height alt-color-scheme">
-        <img src={ this.props.staticLink("/static/img/image-nope_screenshots.svg") } alt="no Shots found" width="432" height="432"/>
+        <Localized id="gNoShots">
+          <img src={ this.props.staticLink("/static/img/image-nope_screenshots.svg") } alt="no Shots found" width="432" height="432"/>
+        </Localized>
         <div className="alt-content">
           <p>{ message }</p>
           { moreInfo }
@@ -253,13 +268,14 @@ class Body extends React.Component {
     let deleteTime = new Date(expireTime + this.props.retentionTime);
     let restoreWidget;
     if (this.props.isOwner) {
+      // todo l10n - timediffs
       restoreWidget = (
         <p>
-          <Localized id="shotPageExpirationMessage">/* todo - how do we handle the timediffs? */
+          <Localized id="shotPageExpirationMessage">
             If you do nothing,
             this shot will be permanently deleted in <TimeDiff date={deleteTime} />.
           </Localized>
-          <Localized id="shotPageRestoreButton"> /* todo l10n: how do we handle the time interval? "restore for N days" */
+          <Localized id="shotPageRestoreButton">
             <button className="button primary" onClick={this.onRestore.bind(this)}>restore for {intervalDescription(this.props.defaultExpiration)}</button>
           </Localized>
         </p>
@@ -271,9 +287,16 @@ class Body extends React.Component {
       <div className="column-center full-height alt-color-scheme">
         <img src={ this.props.staticLink("/static/img/image-expired_screenshots.svg") } alt="no Shots found" width="432" height="432"/>
         <div className="alt-content">
-          <h1>This shot has expired.</h1>
-          <p>Here is page it was originally created from:<br/>
-          <a href={this.props.shot.urlIfDeleted} onClick={ this.onClickOrigUrl.bind(this, "expired") }>{this.props.shot.title}</a></p>
+          <Localized id="shotPageExpiredMessage">
+            <h1>This shot has expired.</h1>
+          </Localized>
+          <p>
+            <Localized id="shotPageExpiredMessageDetails">
+              <span>Here is the page it was originally created from:</span>
+            </Localized>
+            <br/>
+            <a href={this.props.shot.urlIfDeleted} onClick={ this.onClickOrigUrl.bind(this, "expired") }>{this.props.shot.title}</a>
+          </p>
           { restoreWidget }
         </div>
       </div>
@@ -323,7 +346,7 @@ class Body extends React.Component {
     }
 
     let myShotsHref = "/shots";
-    let myShotsText = <span className="back-to-index">My Shots</span>;
+    let myShotsText = <Localized id="gMyShots"><span className="back-to-index">My Shots</span></Localized>;
     // FIXME: this means that on someone else's shot they won't see a My Shots link:
     if (!this.props.isOwner) {
       myShotsText = <span className="back-to-home">
@@ -356,6 +379,7 @@ class Body extends React.Component {
       favicon = <div style={{backgroundImage: `url("${shot.favicon}")`}} className="favicon" />;
     }
 
+    // l10n todo: see the span className=time-diff
     return (
       <reactruntime.BodyTemplate {...this.props}>
         <div id="frame" className="inverse-color-scheme full-height column-space">
@@ -367,7 +391,7 @@ class Body extends React.Component {
               <EditableTitle title={shot.title} isOwner={this.props.isOwner} />
               <div className="shot-subtitle"> { favicon }
                 { linkTextShort ? <a className="subtitle-link" href={ shotRedirectUrl } onClick={ this.onClickOrigUrl.bind(this, "navbar") }>{ linkTextShort }</a> : null }
-                <span className="time-diff">{ timeDiff }</span> { expiresDiff } /* todo l10n - figure out how to localize timeDiffs */
+                <span className="time-diff">{ timeDiff }</span> { expiresDiff }
               </div>
             </div>
           </div>
@@ -393,7 +417,14 @@ class Body extends React.Component {
 
   renderFirefoxRequired() {
     return <div className="highlight-color-scheme alt-notification">
-      <div> <strong>Firefox Screenshots</strong> made simple. Take, save and share screenshots without leaving Firefox. <a href="https://www.mozilla.org/firefox/new/?utm_source=screenshots.firefox.com&utm_medium=referral&utm_campaign=screenshots-acquisition" onClick={ this.clickedInstallFirefox.bind(this) }>Get Firefox now</a></div>
+      <div>
+        <Localized id="gScreenshotsDescription">
+          <span><strong>Firefox Screenshots</strong> made simple. Take, save and share screenshots without leaving Firefox.</span>
+        </Localized>
+        <Localized id="shotPageUpsellFirefox">
+          <a href="https://www.mozilla.org/firefox/new/?utm_source=screenshots.firefox.com&utm_medium=referral&utm_campaign=screenshots-acquisition" onClick={ this.clickedInstallFirefox.bind(this) }>Get Firefox now</a>
+        </Localized>
+      </div>
       <a className="close" onClick={ this.doCloseBanner.bind(this) }></a>
     </div>;
   }

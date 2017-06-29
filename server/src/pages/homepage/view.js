@@ -576,8 +576,13 @@ class Body extends React.Component {
           <div className="button-icon-badge"></div>
         </div>
         <div className="button-copy">
-          <div data-l10n-id="landingDownloadFirefoxTitle" className="button-title">Firefox</div>
-          <div data-l10n-id="landingDownloadFirefoxSubTitle" className="button-description">Free Download</div>
+          <!-- TODO: do we actually want to localize the word 'Firefox'? -->
+          <Localized id="homePageDownloadFirefoxTitle">
+            <div className="button-title">Firefox</div>
+          </Localized>
+          <Localized id="homePageDownloadFirefoxSubTitle">
+            <div className="button-description">Free Download</div>
+          </Localized>
         </div>
       </a>
     );
@@ -587,7 +592,9 @@ class Body extends React.Component {
     let myShots;
     if (this.props.showMyShots) {
       myShots = <a className="myshots-button" onClick={ this.onClickMyShots.bind(this) }>
-        <span className="myshots-text">Go To My Shots</span>
+        <Localized id="gMyShots">
+          <span className="myshots-text">My Shots</span>
+        </Localized>
       </a>
     }
     return (
@@ -599,7 +606,9 @@ class Body extends React.Component {
                 <a href="#" className="screenshots-logo"></a>
               </div>
               <div className="nav-links">
-                <a href="#">Get Started</a>
+                <Localized id="homePageGetStarted">
+                  <a href="#">Get Started</a>
+                </Localized>
                 { myShots }
               </div>
             </div>
@@ -608,18 +617,26 @@ class Body extends React.Component {
             <div className="container">
               <div className="banner-content">
                 <h1>Firefox Screenshots</h1>
-                <p>Screenshots made simple. Take, save, and share screenshots without leaving Firefox.</p>
+                <Localized id="gScreenshotsDescription">
+                  <p>Screenshots made simple. Take, save, and share screenshots without leaving Firefox.</p>
+                </Localized>
                 { this.renderGetFirefox() }
               </div>
             </div>
           </div>
         </header>
-        <h2>How Screenshots Works</h2>
+        <Localized id="homePageHowScreenshotsWorks">
+          <h2>How Screenshots Works</h2>
+        </Localized>
         <section id="section-1">
           <div className="container">
             <div className="section-content">
-              <h3>Get <span className="bold">Started</span></h3>
-              <p>Find the new Screenshots icon on your toolbar. Select it, and the Screenshots menu will appear on top of your browser window.</p>
+              <Localized id="homePageGetStarted">
+                <h3>Get <span className="bold">Started</span></h3>
+              </Localized>
+              <Localized id="homePageGetStartedDescription">
+                <p>Find the new Screenshots icon on your toolbar. Select it, and the Screenshots menu will appear on top of your browser window.</p>
+              </Localized>
             </div>
             <div className="section-image"></div>
           </div>
@@ -627,8 +644,12 @@ class Body extends React.Component {
         <section id="section-2">
           <div className="container">
             <div className="section-content">
-              <h3><span className="bold">Capture</span> a Region</h3>
-              <p>Click and drag to select the area you want to capture. Or just hover and click — Screenshots will select the area for you. Like what you see? Select Save to access your screenshot online or the down arrow button to download it to your computer.</p>
+              <Localized id="homePageCaptureRegion">
+                <h3><span className="bold">Capture</span> a Region</h3>
+              </Localized>
+              <Localized id="homePageCaptureRegionDescription">
+                <p>Click and drag to select the area you want to capture. Or just hover and click — Screenshots will select the area for you. Like what you see? Select Save to access your screenshot online or the down arrow button to download it to your computer.</p>
+              </Localized>
             </div>
             <div className="section-image"></div>
           </div>
@@ -636,8 +657,12 @@ class Body extends React.Component {
         <section id="section-3">
           <div className="container">
             <div className="section-content">
-              <h3><span className="bold">Capture</span> a Page</h3>
-              <p>Use the buttons in the upper right to capture full pages. The Save Visible button will capture the area you can view without scrolling, and the Save Full Page will capture everything on the page.</p>
+              <Localized id="homePageCapturePage">
+                <h3><span className="bold">Capture</span> a Page</h3>
+              </Localized>
+              <Localized id="homePageCapturePageDescription">
+                <p>Use the buttons in the upper right to capture full pages. The Save Visible button will capture the area you can view without scrolling, and the Save Full Page will capture everything on the page.</p>
+              </Localized>
             </div>
             <div className="section-image"></div>
           </div>
@@ -645,8 +670,12 @@ class Body extends React.Component {
         <section id="section-4">
           <div className="container">
             <div className="section-content">
-              <h3><span className="bold">Save</span> and <span className="bold">Share</span></h3>
-              <p>When you take a shot, Firefox posts your screenshot to your online Screenshots library and copies the link to your clipboard. We automatically store your screenshot for two weeks, but you can delete shots at any time or change the expiration date to keep them in your library for longer. </p>
+              <Localized id="homePageSaveShare">
+                <h3><span className="bold">Save</span> and <span className="bold">Share</span></h3>
+              </Localized>
+              <Localized id="homePageSaveShareDescription">
+                <p>When you take a shot, Firefox posts your screenshot to your online Screenshots library and copies the link to your clipboard. We automatically store your screenshot for two weeks, but you can delete shots at any time or change the expiration date to keep them in your library for longer. </p>
+              </Localized>
             </div>
             <div className="section-image"></div>
           </div>
@@ -655,10 +684,18 @@ class Body extends React.Component {
           <div className="container">
             <div className="legal-links">
               <a href="https://www.mozilla.org" className="mozilla-logo"></a>
-              <a href="https://www.mozilla.org/about/legal/" className="boilerplate">Legal</a>
-              <a href="https://www.mozilla.org/privacy/firefox-cloud/" className="boilerplate">Privacy</a>
-              <a href="https://www.mozilla.org/about/legal/terms/services/" className="boilerplate">Terms</a>
-              <a href="https://www.mozilla.org/privacy/websites/#cookies" className="boilerplate">Cookies</a>
+              <Localized id="homePageLegalLink">
+                <a href="https://www.mozilla.org/about/legal/" className="boilerplate">Legal</a>
+              </Localized>
+              <Localized id="homePagePrivacyLink">
+                <a href="https://www.mozilla.org/privacy/firefox-cloud/" className="boilerplate">Privacy</a>
+              </Localized>
+              <Localized id="homePageTermsLink">
+                <a href="https://www.mozilla.org/about/legal/terms/services/" className="boilerplate">Terms</a>
+              </Localized>
+              <Localized id="homePagePrivacyLink">
+                <a href="https://www.mozilla.org/privacy/websites/#cookies" className="boilerplate">Cookies</a>
+              </Localized>
             </div>
             <div className="social-links">
               <a href="https://github.com/mozilla-services/screenshots" target="_blank" className="link-icon github" title="GitHub"></a>

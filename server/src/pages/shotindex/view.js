@@ -273,8 +273,9 @@ class Card extends React.Component {
   }
 
   displayTitle(title) {
+    // todo l10n: this won't work for rtl languages. use CSS ellipsis instead?
     if (title.length > 140) {
-      return (title.substring(0, 140) + "..."); // todo l10n: is this the right way to truncate rtl languages?
+      return (title.substring(0, 140) + "...");
     }
     return title;
   }
