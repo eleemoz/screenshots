@@ -631,8 +631,8 @@ class Body extends React.Component {
         <section id="section-1">
           <div className="container">
             <div className="section-content">
-              <Localized id="homePageGetStarted">
-                <h3>Get <span className="bold">Started</span></h3>
+              <Localized id="homePageGet">
+                <h3>Get <Localized id="homePageStarted"><span className="bold">Started</span></Localized></h3>
               </Localized>
               <Localized id="homePageGetStartedDescription">
                 <p>Find the new Screenshots icon on your toolbar. Select it, and the Screenshots menu will appear on top of your browser window.</p>
@@ -645,7 +645,7 @@ class Body extends React.Component {
           <div className="container">
             <div className="section-content">
               <Localized id="homePageCaptureRegion">
-                <h3><span className="bold">Capture</span> a Region</h3>
+                <h3><Localized id="homePageCapture"><span className="bold">Capture</span></Localized> a Region</h3>
               </Localized>
               <Localized id="homePageCaptureRegionDescription">
                 <p>Click and drag to select the area you want to capture. Or just hover and click — Screenshots will select the area for you. Like what you see? Select Save to access your screenshot online or the down arrow button to download it to your computer.</p>
@@ -658,7 +658,7 @@ class Body extends React.Component {
           <div className="container">
             <div className="section-content">
               <Localized id="homePageCapturePage">
-                <h3><span className="bold">Capture</span> a Page</h3>
+                <h3><Localized id="homePageCapture"><span className="bold">Capture</span></Localized> a Page</h3>
               </Localized>
               <Localized id="homePageCapturePageDescription">
                 <p>Use the buttons in the upper right to capture full pages. The Save Visible button will capture the area you can view without scrolling, and the Save Full Page will capture everything on the page.</p>
@@ -671,7 +671,8 @@ class Body extends React.Component {
           <div className="container">
             <div className="section-content">
               <Localized id="homePageSaveShare">
-                <h3><span className="bold">Save</span> and <span className="bold">Share</span></h3>
+                <h3><Localized id="homePageSave"><span className="bold">Save</span></Localized> and
+                    <Localized id="homePageShare"><span className="bold">Share</span></Localized></h3>
               </Localized>
               <Localized id="homePageSaveShareDescription">
                 <p>When you take a shot, Firefox posts your screenshot to your online Screenshots library and copies the link to your clipboard. We automatically store your screenshot for two weeks, but you can delete shots at any time or change the expiration date to keep them in your library for longer. </p>
