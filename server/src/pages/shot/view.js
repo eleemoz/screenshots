@@ -196,8 +196,8 @@ class Body extends React.Component {
 
   onClickDelete(e) {
     sendEvent("start-delete", "navbar", {useBeacon: true});
-    // todo l10n: another window.confirm to localize
-    if (window.confirm("Are you sure you want to delete this shot permanently?")) {
+    const confirmMessage = document.getElementById("shotPageConfirmDelete").textContent;
+    if (window.confirm(confirmMessage)) {
       sendEvent("delete", "popup-confirm", {useBeacon: true});
       this.props.controller.deleteShot(this.props.shot);
     } else {
@@ -239,7 +239,7 @@ class Body extends React.Component {
               <span>If your Shots are subject to multiple claims, we may revoke your access to Firefox Screenshots.</span>
             </Localized>
             <br/>
-            <Localized id="shotPageDMCAIncludeLink" $url={{this.props.backend}/{this.props.id}}>
+            <Localized id="shotPageDMCAIncludeLink" $url={this.props.backend/this.props.id}>
               <span>Please include the URL of this shot in your email: {$url}</span>
             </Localized>
           </p>
@@ -319,6 +319,13 @@ class Body extends React.Component {
         clip={ clip }
         shotId={ shotId } />);
     }
+
+    let errorMessages = [
+      <Localized id="shotPageAlertErrorUpdatingExpirationTime"><div id="shotPageAlertErrorUpdatingExpirationTime" hidden></div></Localized>,
+      <Localized id="shotPageAlertErrorDeletingShot"><div id="shotPageAlertErrorDeletingShot" hidden></div></Localized>,
+      <Localized id="shotPageAlertErrorUpdatingTitle"><div id="shotPageAlertErrorUpdatingTitle" hidden></div></Localized>,
+      <Localized id="shotPageConfirmDelete"><div id="shotPageConfirmDelete" hidden></div></Localized>
+    ];
 
     let linkTextShort = shot.urlDisplay;
 
@@ -410,6 +417,7 @@ class Body extends React.Component {
           </div>
         </div>
         { clips }
+        { errorMessages }
         <Footer forUrl={ shot.viewUrl } {...this.props} />
       </div>
     </reactruntime.BodyTemplate>);

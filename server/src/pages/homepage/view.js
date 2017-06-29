@@ -570,13 +570,13 @@ class Body extends React.Component {
     if (this.props.isFirefox) {
       return null;
     }
+    // TODO: do we want to localize the word 'Firefox'?
     return (
       <a href="https://www.mozilla.org/firefox" className="button primary download-firefox">
         <div className="button-icon">
           <div className="button-icon-badge"></div>
         </div>
         <div className="button-copy">
-          <!-- TODO: do we actually want to localize the word 'Firefox'? -->
           <Localized id="homePageDownloadFirefoxTitle">
             <div className="button-title">Firefox</div>
           </Localized>

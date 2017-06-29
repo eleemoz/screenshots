@@ -40,6 +40,7 @@ class Body extends React.Component {
           <div id="shot-index" className="flex-1">
             { this.renderShots() }
           </div>
+          { this.renderErrorMessages() }
           <Footer forUrl="shots" {...this.props} />
         </div>
       </reactruntime.BodyTemplate>
@@ -70,6 +71,19 @@ class Body extends React.Component {
       )
     }
     return children;
+  }
+
+  renderErrorMessages() {
+    return (
+      <div>
+        <Localized id="shotIndexPageErrorDeletingShot">
+          <div id="shotIndexPageErrorDeletingShot" hidden></div>
+        </Localized>
+        <Localized id="shotIndexPageConfirmShotDelete">
+          <div id="shotIndexPageConfirmShotDelete" hidden></div>
+        </Localized>
+      </div>
+    );
   }
 
   handleLayoutComplete() {
@@ -284,8 +298,9 @@ class Card extends React.Component {
     event.stopPropagation();
     event.preventDefault();
     sendEvent("start-delete", "my-shots", {useBeacon: true});
-    // l10n todo: how to localize the window.confirm text? maybe with a hidden element in the page?
-    if (window.confirm(`Delete ${shot.title}?`)) {
+    let confirmMessage = document.getElementById("shotIndexPageConfirmShotDelete").textContent;
+    confirmMessage = confirmMessage.replace('{shotTitle}', shot.title);
+    if (window.confirm(confirmMessage)) {
       sendEvent("delete", "my-shots-popup-confirm", {useBeacon: true});
       controller.deleteShot(shot);
     } else {

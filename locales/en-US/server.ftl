@@ -71,6 +71,7 @@ notFoundPageDescription = Page not found.
 shotPageAlertErrorUpdatingExpirationTime = Error saving expiration: {status} {statusText}
 shotPageAlertErrorDeletingShot = Error deleting shot: {status} {statusText}
 shotPageAlertErrorUpdatingTitle = Error saving title: {status} {statusText}
+shotPageConfirmDelete = Are you sure you want to delete this shot permanently?
 
 shotPageShareButton
   .title = Share
