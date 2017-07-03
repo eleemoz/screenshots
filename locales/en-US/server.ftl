@@ -4,10 +4,9 @@
 gMyShots = My Shots
 gHomeLink = Home
 gNoShots
-  .alt = no Shots found
+  .alt = No shots found
 
-// Note: do not translate 'Firefox Screenshots' when translating this string
-gScreenshotsDescription  = Firefox Screenshots made simple. Take, save and share screenshots without leaving Firefox.
+gScreenshotsDescription  = Screenshots made simple. Take, save, and share  screenshots without leaving Firefox.
 
 // creating page
 
@@ -22,12 +21,12 @@ creatingPageTitleDefault = page
 homePageDescription
   .content = Intuitive screenshots baked right into the browser. Capture, save and share screenshots as you browse the Web using Firefox.
 homePageButtonMyShots = Go To My Shots
-homePageTeaser = Coming Soon...
+homePageTeaser = Coming Soon…
 homePageDownloadFirefoxTitle = Firefox
 homePageDownloadFirefoxSubTitle = Free Download
 homePageGetStarted = Get Started
-// TODO: do we want to translate 'Screenshots' here?
-homePageHowScreenshotsWorks = How Screenshots Works
+// Note: do not translate 'Firefox Screenshots' when translating this string
+homePageHowScreenshotsWorks = How Firefox Screenshots Works
 // Note: {started} is a placeholder for the string homePageStarted, which will be emphasized
 homePageGetStarted = Get {started}
 homePageStarted = Started
@@ -53,13 +52,13 @@ homePagePrivacyLink = Cookies
 // leave screenshots page
 
 leavePageConfirmDelete = Confirm account deletion
-leavePageErrorAddonRequired = You must have the addon installed to delete your account
+leavePageErrorAddonRequired = You must have Firefox Screenshots installed to delete your account
 // TODO: do we need this separate error message?
-leavePageErrorAddonRequired2 = You must have the addon installed to leave
+leavePageErrorAddonRequired2 = You must have Firefox Screenshots installed to leave
 leavePageErrorGeneric = An error occurred
 leavePageWarning = This will permanently erase all of your Firefox Screenshots data.
 leavePageButtonProceed = Proceed
-leavePageButtonCancel = cancel
+leavePageButtonCancel = Cancel
 leavePageDeleted = All of your screenshots have been erased!
 
 // not found page
@@ -83,18 +82,17 @@ shotPageShareButton
 shotPageCopy = Copy
 shotPageCopied = Copied
 shotPageShareFacebook
-  .title = Share to Facebook wall or message
-// TODO: awkward phrase, maybe 'Share on Twitter'?
+  .title = Share on Facebook
 shotPageShareTwitter
-  .title = Share to a tweet
+  .title = Share on Twitter
 shotPageSharePinterest
-  .title = Share to Pinterest
+  .title = Share on Pinterest
 shotPageShareEmail
-  .title = Create email with link
+  .title = Share link via email
 shotPageShareLink = Get a shareable link to this shot:
-shotPagePrivacyMessage = This shot is only visible to you until you share the link.
+shotPagePrivacyMessage = Anyone with the link can view this shot.
 shotPageCopyImageText
-  .label = Copy Image Text
+  .label = Copy image text
 shotPageConfirmDeletion = Are you sure you want to delete this shot permanently?
 // Note: {timediff} is a placeholder for a future time like 'tomorrow' or 'next week'
 // TODO: "in {timediff}" probably won't work across languages. maybe an absolute date is best.
@@ -105,16 +103,16 @@ shotPageRestoreButton = restore for {timediff}
 shotPageExpiredMessage = This shot has expired.
 shotPageExpiredMessageDetails = Here is the page it was originally created from: {page}
 shotPageDeleteButton
-  .title = Delete this shot permanently
+  .title = Delete this shot
 shotPageAbuseButton
   .title = Report this shot for abuse, spam, or other problems
 shotPageDownloadShot
-  .title = Download the shot image
+  .title = Download
 shotPageDownload = Download
 // Note: do not translate 'Firefox Screenshots' when translating this string
-shotPageScreenshotsDescription  = Firefox Screenshots made simple. Take, save and share screenshots without leaving Firefox.
+shotPageScreenshotsDescription  = Screenshots made simple. Take, save, and share  screenshots without leaving Firefox.
 shotPageUpsellFirefox = Get Firefox now
-shotPageDoesNotExpire = does not expire
+shotPageDoesNotExpire = Does not expire
 shotPageDMCAMessage = This shot is no longer available due to a third party intellectual property claim.
 // Note: {$dmca} is a placeholder for a link to send email (a mailto link).
 shotPageDMCAContact = Please email {$dmca} to request further information.
@@ -134,17 +132,16 @@ shotIndexPageSearchResultsTitle = My Shots: search for {searchTerm}
 // with developers when debugging an error.
 shotIndexPageErrorRendering = Error rendering page: {error}
 shotIndexPageSearchPlaceholder
-  .placeholder = search my shots
+  .placeholder = Search my shots
 shotIndexPageSearchButton
-  .title = search
+  .title = Search
 shotIndexPageNoShotsMessage = No saved shots.
 shotIndexPageNoShotsInvitation = Go on, create some.
-// TODO should we include the ellipsis as three periods, or leave a placeholder for an html entity?
-shotIndexPageLookingForShots = Looking for your shots...
-shotIndexPageNoSearchResultsIntro = Hmmm!
-shotIndexPageNoSearchResults = We can't find any shots that match your search.
+shotIndexPageLookingForShots = Looking for your shots…
+shotIndexPageNoSearchResultsIntro = Hmm
+shotIndexPageNoSearchResults = We canʼt find any shots that match your search.
 shotIndexPageClearSearchButton
-  .title = clear search
+  .title = Clear search
 // {shotTitle} is a placeholder for the title of the screenshot
 shotIndexPageConfirmShotDelete = Delete {shotTitle}?
 
@@ -175,9 +172,9 @@ metricsPageUserShotsQueryDescription = The number of users who have about N tota
 metricsPageUserShotsQueryCount = Number of users
 metricsPageUserShotsQueryShots = Approximate number of active (unexpired) shots
 metricsPageRetentionQueryTitle = Retention By Week
-metricsPageRetentionQueryDescription = Number of days from a user's first shot to most recent shot, grouped by starting week
+metricsPageRetentionQueryDescription = Number of days from a userʼs first shot to most recent shot, grouped by starting week
 metricsPageRetentionQueryUsers = Number of users
-metricsPageRetentionQueryDays = Days from the user's first to most recent shot
+metricsPageRetentionQueryDays = Days from the userʼs first to most recent shot
 metricsPageRetentionQueryFirstWeek = Week the user first created a shot
 metricsPageTotalRetentionQueryTitle = Total Retention
 metricsPageTotalRetentionQueryDescription = Length of time users have been creating shots, grouped by week
