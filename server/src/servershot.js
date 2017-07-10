@@ -381,6 +381,7 @@ Shot.get = function(backend, id, deviceId) {
     }
     let shot = new Shot(rawValue.userid, backend, id, json);
     shot.urlIfDeleted = rawValue.url;
+    shot.accountId = rawValue.accountId;
     shot.expireTime = rawValue.expireTime;
     shot.deleted = rawValue.deleted;
     shot.blockType = rawValue.blockType;
@@ -412,7 +413,8 @@ Shot.getRawValue = function(id, deviceId) {
   if (!id) {
     throw new Error("Empty id: " + id);
   }
-  let query = `SELECT value, deviceid, url, title, expire_time, deleted, block_type FROM data WHERE id = $1`;
+  let query = `SELECT value, deviceid, url, title, expire_time, deleted, block_type, devices.accountid
+  FROM data, devices WHERE data.deviceid = devices.id AND data.id = $1`;
   let params = [id];
   if (deviceId) {
     query += ` AND deviceid = $2`;
@@ -433,17 +435,37 @@ Shot.getRawValue = function(id, deviceId) {
       title: row.title,
       expireTime: row.expire_time,
       deleted: row.deleted,
-      blockType: row.block_type
+      blockType: row.block_type,
+      accountId: row.accountid
     };
   });
 };
 
-Shot.checkOwnership = function(shotId, deviceId) {
+Shot.checkOwnership = function(shotId, deviceId, accountId) {
   return db.select(
-    `SELECT id FROM data WHERE id = $1 AND deviceid = $2`,
-    [shotId, deviceId]
+    `SELECT DISTINCT devices.id
+       FROM devices, devices AS devices2
+       WHERE devices.id = $1
+             OR (devices.accountid = devices2.accountid
+                 AND devices2.id = $1)
+      `,
+      [deviceId]
   ).then((rows) => {
-    return !!rows.length;
+    let ids = [];
+    for(let i = 0; i < rows.length; i++) {
+      ids.push(rows[i].id)
+    }
+    if (!ids.length) {
+      ids = [deviceId];
+    }
+    let query = `SELECT FROM data WHERE id = $1 AND deviceid IN (${db.markersForArgs(2, ids.length)})`;
+    let params = [shotId].concat(ids);
+    return db.select(
+      query,
+      params
+    ).then((rows) => {
+      return !!rows.length;
+    })
   });
 };
 
@@ -526,34 +548,69 @@ Shot.getShotsForDevice = function(backend, deviceId, searchQuery) {
 };
 
 Shot.setExpiration = function(backend, shotId, deviceId, expiration) {
-  if (expiration === 0) {
+  return db.select(
+    `SELECT DISTINCT devices.id
+       FROM devices, devices AS devices2
+       WHERE devices.id = $1
+             OR (devices.accountid = devices2.accountid
+                 AND devices2.id = $1)
+      `,
+      [deviceId]
+  ).then((rows) => {
+    let ids = [];
+    for(let i = 0; i < rows.length; i++) {
+      ids.push(rows[i].id)
+    }
+    if (!ids.length) {
+      ids = [deviceId];
+    }
+    let params = [shotId].concat(ids);
+    if (expiration === 0) {
+      return db.update(
+        `UPDATE data
+         SET expire_time = NULL
+         WHERE id = $1
+               AND deviceid IN (${db.markersForArgs(2, ids.length)})
+        `,
+        params
+      );
+    }
+    if (typeof expiration != "number") {
+      throw new Error("Bad expiration type");
+    } else if (expiration < 0) {
+      throw new Error("Expiration less than zero");
+    }
+    expiration = Math.floor(expiration / 1000);
+    params = [expiration, shotId].concat(ids);
     return db.update(
       `UPDATE data
-       SET expire_time = NULL
-       WHERE id = $1
-             AND deviceid = $2
+       SET expire_time = NOW() + ($1 || ' SECONDS')::INTERVAL
+       WHERE id = $2
+             AND deviceid IN (${db.markersForArgs(3, ids.length)})
       `,
-      [shotId, deviceId]
+      params
     );
-  }
-  if (typeof expiration != "number") {
-    throw new Error("Bad expiration type");
-  } else if (expiration < 0) {
-    throw new Error("Expiration less than zero");
-  }
-  expiration = Math.floor(expiration / 1000);
-  return db.update(
-    `UPDATE data
-     SET expire_time = NOW() + ($1 || ' SECONDS')::INTERVAL
-     WHERE id = $2
-           AND deviceid = $3
-    `,
-    [expiration, shotId, deviceId]
-  );
+  })
 };
 
 Shot.deleteShot = function(backend, shotId, deviceId) {
-  return Shot.get(backend, shotId, deviceId)
+  return db.select(
+    `SELECT DISTINCT devices.id
+       FROM devices, devices AS devices2
+       WHERE devices.id = $1
+             OR (devices.accountid = devices2.accountid
+                 AND devices2.id = $1)
+      `,
+      [deviceId]
+  ).then((rows) => {
+    let ids = [];
+    for(let i = 0; i < rows.length; i++) {
+      ids.push(rows[i].id)
+    }
+    if (!ids.length) {
+      ids = [deviceId];
+    }
+    return Shot.get(backend, shotId)
     .then((shot) => {
       const clipRewrites = new ClipRewrites(shot);
       clipRewrites.clear();
@@ -562,14 +619,16 @@ Shot.deleteShot = function(backend, shotId, deviceId) {
       });
     })
     .then(() => {
+      let params = [shotId].concat(ids);
       return db.update(
         `DELETE FROM data
          WHERE id = $1
-               AND deviceid = $2
+               AND deviceid IN (${db.markersForArgs(2, ids.length)})
         `,
-        [shotId, deviceId]
+        params
       );
     });
+  })
 };
 
 Shot.deleteEverythingForDevice = function(backend, deviceId) {
